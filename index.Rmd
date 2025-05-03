@@ -27,24 +27,93 @@ text-align: justify}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-# R Markdown
+```{r}
+# Load library
+library(ggplot2)
+library(corrplot)
+library(readr)
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents [@deCarvalho2012]. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+# Baca data
+HeatingOil <- read.csv("HeatingOil.csv")
+HeatingOil_Marketing <- read.csv("HeatingOil-Marketing.csv")
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+# Ambil variabel yang relevan dari HeatingOil, bukan 'data'
+data_corr <- HeatingOil[, c("Heating_Oil", "Insulation", "Temperature", "Num_Occupants", "Avg_Age", "Home_Size")]
 
-```{r cars}
-summary(cars)
+# Buat correlation matrix
+cor_matrix <- cor(data_corr, use = "complete.obs")
+
+# Tampilkan matrix korelasi dalam bentuk tabel
+print(round(cor_matrix, 2))
+
+# Visualisasi: Heatmap
+corrplot(cor_matrix, method = "color", type = "upper", tl.col = "black", tl.cex = 0.8)
+
+
+
 ```
 
-## Including Plots
+## Penjelasan:
+Temperature (-0.75): Korelasi negatif kuat — semakin hangat suhu di luar, semakin sedikit minyak pemanas digunakan.
 
-You can also embed plots, for example:
+Insulation (-0.60): Korelasi negatif cukup kuat — rumah dengan insulasi yang baik butuh lebih sedikit minyak pemanas.
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+Home_Size (0.55): Korelasi positif — rumah yang lebih besar cenderung membutuhkan lebih banyak minyak.
+
+Num_Occupants (0.45) dan Avg_Age (0.30) juga memiliki korelasi positif, namun lebih lemah.
+
+##Kesimpulan:
+Faktor-faktor yang paling berpengaruh terhadap konsumsi minyak adalah suhu udara dan kualitas insulasi. Rumah lebih besar juga cenderung lebih boros.
+
+```{r}
+# Scatter plot
+ggplot(HeatingOil, aes(x = Heating_Oil, y = Avg_Age, color = Heating_Oil)) +
+  geom_point(size = 3) +
+  scale_color_gradient(low = "blue", high = "red") +
+  theme_minimal() +
+  labs(title = "Heating Oil vs Avg Age of Occupants",
+       x = "Heating Oil Consumption",
+       y = "Average Age")
+
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+## Penjelasan:
+Terlihat bahwa tidak ada pola yang sangat kuat antara usia penghuni dengan konsumsi minyak.
 
-# Referensi
+Namun, kelompok usia menengah hingga tua mungkin sedikit lebih boros.
+
+```{r}
+# Scatter plot 2
+ggplot(HeatingOil, aes(x = Temperature, y = Insulation, color = Heating_Oil)) +
+  geom_point(size = 3) +
+  scale_color_gradient(low = "green", high = "red") +
+  theme_minimal() +
+  labs(title = "Temperature vs Insulation (Colored by Heating Oil Consumption)",
+       x = "Average Outdoor Temperature (F)",
+       y = "Insulation Score")
+
+```
+
+## Penjelasan:
+Titik merah (konsumsi tinggi) banyak muncul di bagian suhu rendah dan insulasi rendah.
+
+Titik hijau (konsumsi rendah) cenderung di suhu tinggi dan insulasi baik.
+
+
+## Strategi Pemasaran:
+Fokus pada rumah yang berada di daerah bersuhu rendah — berikan promosi spesial menjelang musim dingin.
+
+Segmentasi rumah dengan insulasi rendah — tawarkan paket hemat atau layanan konsultasi efisiensi energi.
+
+Targetkan rumah besar — rumah dengan ukuran besar cenderung konsumsi tinggi, bisa menjadi pelanggan utama.
+
+Usia penghuni — buat kampanye berbeda untuk kelompok usia menengah dan lansia (misalnya, layanan pengisian otomatis atau reminder SMS).
+
+Gunakan pendekatan prediktif — kembangkan sistem rekomendasi atau prediksi berbasis model regresi.
+
+
+
+
+
+
+
