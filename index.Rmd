@@ -1,6 +1,6 @@
 ---
 title: "Analisis Konsumsi Heating Oil"
-author: "Deden Istiawan - Institut Teknologi Statistika dan Bisnis Muhammadiyah"
+author: "Hafiz Nursyafiq - Institut Teknologi Statistika dan Bisnis Muhammadiyah"
 date: "`r Sys.Date()`"
 output: 
   html_document:
@@ -28,8 +28,8 @@ Tujuan dari analisis ini adalah untuk mengeksplorasi faktor-faktor yang mempenga
 
 ## 2. Data dan Persiapan
 Data yang digunakan terdiri dari dua file:
-*HeatingOil.csv:* Data utama tentang konsumsi minyak pemanas dan variabel lainnya.
-*HeatingOil-Marketing.csv:* Data tentang calon pelanggan untuk prediksi konsumsi minyak pemanas.
+**HeatingOil.csv:** Data utama tentang konsumsi minyak pemanas dan variabel lainnya.
+**HeatingOil-Marketing.csv:** Data tentang calon pelanggan untuk prediksi konsumsi minyak pemanas.
 
 Library yang digunakan:
 
@@ -60,11 +60,11 @@ corrplot(cor_matrix, method = "color", type = "upper", tl.col = "black", tl.cex 
 
 ```
 ### Penjelasan Korelasi
-*Temperature (-0.77):* Korelasi negatif kuat antara suhu dan konsumsi minyak — semakin hangat suhu di luar, semakin sedikit minyak pemanas yang digunakan.
-*Insulation (0.74):* Korelasi positif kuat antara kualitas insulasi dan konsumsi minyak — rumah dengan insulasi baik membutuhkan lebih sedikit minyak.
-*Home_Size (0.38):* Korelasi positif — rumah yang lebih besar cenderung membutuhkan lebih banyak minyak.
-*Num_Occupants (-0.04):* Korelasi sangat lemah — jumlah penghuni rumah tidak terlalu berpengaruh terhadap konsumsi minyak.
-*Avg_Age (0.85):* Korelasi positif kuat — usia rata-rata penghuni rumah berhubungan erat dengan konsumsi minyak.
+**Temperature (-0.77):** Korelasi negatif kuat antara suhu dan konsumsi minyak — semakin hangat suhu di luar, semakin sedikit minyak pemanas yang digunakan.
+**Insulation (0.74):** Korelasi positif kuat antara kualitas insulasi dan konsumsi minyak — rumah dengan insulasi baik membutuhkan lebih sedikit minyak.
+**Home_Size (0.38):** Korelasi positif — rumah yang lebih besar cenderung membutuhkan lebih banyak minyak.
+**Num_Occupants (-0.04):** Korelasi sangat lemah — jumlah penghuni rumah tidak terlalu berpengaruh terhadap konsumsi minyak.
+**Avg_Age (0.85):** Korelasi positif kuat — usia rata-rata penghuni rumah berhubungan erat dengan konsumsi minyak.
 
 ### Kesimpulan Awal:
 Faktor-faktor yang paling berpengaruh terhadap konsumsi minyak adalah 
@@ -102,10 +102,10 @@ Titik merah (konsumsi tinggi) banyak muncul pada suhu rendah dan insulasi rendah
 
 ## 5. Strategi Pemasaran Berdasarkan Analisis 
 Berdasarkan analisis ini, kami dapat memberikan rekomendasi strategi pemasaran sebagai berikut:
-*Wilayah Dingin:* Fokus pada promosi produk menjelang musim dingin.
-*Rumah dengan Insulasi Rendah:* Tawarkan paket efisiensi energi atau perbaikan insulasi untuk mengurangi konsumsi minyak.
-*Ukuran Rumah Besar:* Fokuskan pemasaran pada rumah yang lebih besar yang membutuhkan lebih banyak minyak pemanas.
-*Kelompok Usia Tertentu:* Tawarkan layanan personalisasi seperti pengingat otomatis bagi penghuni rumah dengan usia lebih tua
+**Wilayah Dingin:** Fokus pada promosi produk menjelang musim dingin.
+**Rumah dengan Insulasi Rendah:** Tawarkan paket efisiensi energi atau perbaikan insulasi untuk mengurangi konsumsi minyak.
+**Ukuran Rumah Besar:** Fokuskan pemasaran pada rumah yang lebih besar yang membutuhkan lebih banyak minyak pemanas.
+**Kelompok Usia Tertentu:** Tawarkan layanan personalisasi seperti pengingat otomatis bagi penghuni rumah dengan usia lebih tua
 
 ## 6. Pembuatan Model Prediktif
 Model regresi linear digunakan untuk memprediksi konsumsi minyak berdasarkan faktor-faktor yang telah dianalisis.
